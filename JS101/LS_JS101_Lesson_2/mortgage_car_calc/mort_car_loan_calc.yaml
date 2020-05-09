@@ -1,0 +1,18 @@
+# messages:
+# - Enter a loan amount. Round to the nearest dollar. $
+# - Enter an APR. No decimal numbers.
+# - Enter the number of years of the loan.
+# - Enter a whole number value greater than 0.
+# - The monthly payment amount $
+# - Would you like to perform another calculation?
+# - Enter y or n
+# - Goodbye!!!
+
+loanAmount: Enter a loan amount. Round to the nearest dollar. $
+aprate: Enter an APR. No decimal numbers.
+yearsLoan: Enter the number of years of the loan.
+wholeNum: Enter a whole number value greater than 0.
+monthly: The monthly payment amount $
+anotherCalc: Would you like to perform another calculation?
+repeater: Enter y or n
+goodbye: Goodbye!!!
