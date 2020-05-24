@@ -1,4 +1,4 @@
-/* 
+/*
 Starting with the string:
 
 let munstersDescription = "The Munsters are creepy and spooky.";
@@ -14,35 +14,79 @@ Understanding the Problem
   -swap lower for upper case
 
 Examples / Test Cases
-let munstersDescription = "The Munsters are creepy and spooky.";  //`tHE mUNSTERS ARE CREEPY AND SPOOKY.`
+let munstersDescription = "The Munsters are creepy and spooky.";
+                          //`tHE mUNSTERS ARE CREEPY AND SPOOKY.`
 
 Data Structures / Control Structures
 -input - string
 -output - string
 -rules / requirements
-  -a hash table for checking for keys and passing values
+  -a string with upper and lower case values for the entire alphabet
 
-Algorithm 1 (using an object) (plain english)
--Define an object with 52 key value pairs
-  -the first 26 key/value pairs are lowercase keys and uppercase values
-  -the second 26 key/value pairs are uppercase keys and lowercase values
--define a variable named bizarroSentence
--iterate through the sentence
--for each position of the sentence, check for a matching key
-  -pass the value for the matching key into bizarroSentence
--return bizarroSentence
--call the function
-
-Algorithm 2 (using a string) (plain english)
+Algorithm (plain english)
+-Define a function called inverter() that takes one argument called sentence
 -Define a string with 52 letters (alphaUpperAndLower)
+ alphaUpperAndLower = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 -define a variable called bizarroSentence
-{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}
--for each position of the sentence check for the index of the same letter in alphaUpperAndLower
-  -if the index is <= 25
+-define a variable called indexStore
+-for each position of the sentence check for
+  -spaces
+  -punctuation
+  -the index of the same letter in alphaUpperAndLower
+-if sentence[idx] is a ' '
+  -concat ' ' to bizarroSentence
+-else if sentence is a '.'
+  -concat '.' to bizarroSentence
+-else if sentence[idx] is equal to a letter in alphaUpperAndLower
+  -store the index of the letter from alphaUpperAndLower in indexStore
+    -if indexStore is <= 25
     -concat the letter from alphaUpperAndLower at index + 26 to bizarroSentence
-  -if the index is > 25
+    -if the indexStore is > 25
     -return the letter from alphaUpperAndLower at index - 26 to bizarroSentence
--return bizarroSentence
+    -return bizarroSentence
 
+Algorithm (pseudocode)
+
+FUNCTION inverter(sentence) {
+  SET alphaUpperAndLower =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  SET bizarroSentence = '';
+  FOR (SET idx = 0; idx < sentence.LENGTH; idx++) {
+    IF (sentence[idx] === ' ' || sentence[idx] === '.') {
+      bizarroSentence += sentence[idx];
+      continue;
+
+    SET indexStore = alphaUpperAndLower.INDEXOF(sentence[idx]);
+    IF (indexStore <= 25) {
+      bizarroSentence.CONCAT(alphaUpperAndLower[indexStore + 26]);
+    } ELSE {
+      bizarroSentence.CONCAT(alphaUpperAndLower[indexStore - 26]);
+    }
+  }
+  return bizarroSentence;
+}
 
 */
+
+let munstersDescription = "The Munsters are creepy and spooky.";
+
+function inverter(sentence) {
+  let alphaUpperAndLower = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let bizarroSentence = '';
+  for (let idx = 0; idx < sentence.length; idx++) {
+    if (sentence[idx] === ' ' || sentence[idx] === '.') {
+      bizarroSentence += sentence[idx];
+      continue;
+    }
+
+    let indexStore = alphaUpperAndLower.indexOf(sentence[idx]);
+    if (indexStore <= 25) {
+      bizarroSentence += alphaUpperAndLower[indexStore + 26];
+    } else if (indexStore > 25) {
+      bizarroSentence += alphaUpperAndLower[indexStore - 26];
+    }
+  }
+  return bizarroSentence;
+}
+
+console.log(inverter(munstersDescription));
