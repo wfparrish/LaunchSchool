@@ -31,8 +31,110 @@ Data Structures / Control Structures
 -rules/requirements
 
 Algorithm (plain english)
--declare a function dms(number) that takes a float as an argument
+-declare a function dms(angle) that takes a float as an argument
 -declare variables named degree, minutes, and seconds
+-declare an empty array named degMinSecArr
+-declare an empty string named degMinSecStr
+-declare an empty number named degMinSecNum
+-check the angle to see if it is a whole number
+  -if it has no decimal portion, append 00'00" and log to the console
+-if the angle is a integer with a decimal portion
+  -convert the angle to a string and assign to degMinSecStr
+  -split the angle on the '.' into degMinSecArr
+  -shift degMinSecArr on degree
+  -unshift degMinSecArr with '.'
+  -join degMinSecArr on '' to degMinSecStr
+  -empty degMinSecArr
+  -convert degMinSecStr to number, multiply by 60, assign to degMinSecNum
+  -convert degMinSecNum to string and split on '.' to degMinSecArr
+  -shift degMinSecArr on minutes
+  -unshift degMinSecArr with '.'
+  -join degMinSecArr on '' to degMinSecStr
+  -empty degMinSecArr
+  -convert degMinSecStr to number and multiply by 60, assign to degMinSecNum
+  -convert degMinSecNum to string and split on '.' to degMinSecArr
+  -shift degMinSecArr on seconds
+-pass the values back to the console using Unicode for the degree symbol
+-call the function
 
+Algorithm (pseudocode)
+FUNCTION dms(angle) {
+  SET degree
+  SET minutes
+  SET seconds
+  SET degMinSecArr
+  SET degMinSecStr
+  SET degMinSecNum
+  SET positionInDegMinSec
+
+  degMinSecStr = String(angle)
+  degMinSecArr = degMinSecStr.SPLIT('.');
+  degree = degMinSecArr.SHIFT();
+  degMinSecArr.UNSHIFT('.');
+  degMinSecStr = degMinSecArr.JOIN('');
+  degMinSecArr = [];
+  degMinSecNum = Number(degMinSecStr * 60);
+  degMinSecArr = String(degMinSecNum).SPLIT('.')
+  minutes = degMinSecArr.SHIFT();
+  degMinSecArr.UNSHIFT('.');
+  degMinSecStr = degMinSecArr.JOIN('');
+  degMinSecArr = [];
+  degMinSecNum = Number(degMinSecStr * 60);
+  degMinSecArr = String(degMinSecNum).SPLIT('.')
+  seconds = degMinSecArr.SHIFT();
+  positionInDegMinSec = `${degrees}${'\u00B0'}${minutes + "'"}${seconds + '"'}`;
+  PRINT positionInDegMinSec;
+}
 
 */
+
+function dms(angle) {
+  let degrees;
+  let minutes;
+  let seconds;
+  let degMinSecArr;
+  let degMinSecStr;
+  let degMinSecNum;
+  let positionInDegMinSec;
+
+  determineDegrees();
+  determineMinutes();
+  determineSeconds();
+
+  function determineDegrees() {
+    degMinSecStr = String(angle);
+    degMinSecArr = degMinSecStr.split('.');
+    degrees = degMinSecArr.shift();
+  }
+
+  function determineMinutes() {
+    degMinSecArr.unshift('.');
+    degMinSecStr = degMinSecArr.join('');
+    degMinSecArr = [];
+    degMinSecNum = Number(degMinSecStr * 60.0);
+    degMinSecArr = String(degMinSecNum).split('.');
+    minutes = degMinSecArr.shift();
+    if (minutes === 'NaN') {
+      minutes = '00';
+    }
+  }
+  
+  function determineSeconds() {
+    degMinSecArr.unshift('.');
+    degMinSecStr = degMinSecArr.join('');
+    degMinSecArr = [];
+    degMinSecNum = Number(degMinSecStr * 60.0);
+    degMinSecArr = String(degMinSecNum).split('.');
+    seconds = degMinSecArr.shift();
+    if (seconds === 'NaN') {    //why 'NaN' and not NaN
+      seconds = '00';
+    }
+  }
+
+  positionInDegMinSec = `${degrees}${'\u00B0'}${minutes + "'"}${seconds + '"'}`;
+  return positionInDegMinSec;
+}
+
+console.log(dms(7.15));
+console.log(dms(287.91));
+
